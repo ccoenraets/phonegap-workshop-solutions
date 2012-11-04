@@ -35,8 +35,8 @@ var WebSqlStore = function(successCallback, errorCallback) {
                 function() {
                     console.log('Create table success');
                 },
-                function() {
-                    console.log('Create table error');
+                function(tx, error) {
+                    alert('Create table error: ' + error.message);
                 });
     }
 
@@ -70,7 +70,7 @@ var WebSqlStore = function(successCallback, errorCallback) {
                         console.log('INSERT success');
                     },
                     function(tx, error) {
-                        console.log('INSERT error: ' + error.message);
+                        alert('INSERT error: ' + error.message);
                     });
         }
     }
@@ -94,8 +94,8 @@ var WebSqlStore = function(successCallback, errorCallback) {
                     callback(employees);
                 });
             },
-            function(tx, error) {
-                alert("Transaction Error: " + error);
+            function(error) {
+                alert("Transaction Error: " + error.message);
             }
         );
     }
@@ -114,7 +114,7 @@ var WebSqlStore = function(successCallback, errorCallback) {
                     callback(results.rows.length === 1 ? results.rows.item(0) : null);
                 });
             },
-            function(tx, error) {
+            function(error) {
                 alert("Transaction Error: " + error.message);
             }
         );

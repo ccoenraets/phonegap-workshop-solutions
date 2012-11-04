@@ -1,19 +1,23 @@
 var app = {
 
-    registerEvents: function() {
-        $('body').on('mousedown', 'a', function(event) {
-            $(event.target).addClass('tappable-active');
+    findByName: function() {
+        var self = this;
+        this.store.findByName($('.search-key').val(), function(employees) {
+            $('.employee-list').html(self.employeeLiTpl(employees));
         });
-        $('body').on('mouseup', 'a', function(event) {
-            $(event.target).removeClass('tappable-active');
-        });
+    },
+
+    renderHomeView: function() {
+        $('body').html(this.homeTpl());
+        $('.search-key').on('keyup', $.proxy(this.findByName, this));
     },
 
     initialize: function() {
         var self = this;
-        this.registerEvents();
+        this.homeTpl = Handlebars.compile($("#home-tpl").html());
+        this.employeeLiTpl = Handlebars.compile($("#employee-li-tpl").html());
         this.store = new MemoryStore(function() {
-            $('body').html(new HomeView(self.store).render().el);
+            self.renderHomeView();
         });
     }
 
