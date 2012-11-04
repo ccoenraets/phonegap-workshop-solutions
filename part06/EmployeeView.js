@@ -1,7 +1,7 @@
 var EmployeeView = function(employee) {
 
     this.initialize = function() {
-        this.el = $('<div/>')
+        this.el = $('<div/>');
     };
 
     this.render = function() {
