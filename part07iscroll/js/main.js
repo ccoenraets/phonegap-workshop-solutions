@@ -1,5 +1,13 @@
 var app = {
 
+    showAlert: function (message, title) {
+        if (navigator.notification) {
+            navigator.notification.alert(message, null, title, 'OK');
+        } else {
+            alert(title ? (title + ": " + message) : message);
+        }
+    },
+
     registerEvents: function() {
         $('body').on('mousedown', 'a', function(event) {
             $(event.target).addClass('tappable-active');
