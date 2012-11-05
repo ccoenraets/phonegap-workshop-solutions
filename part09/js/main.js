@@ -1,5 +1,13 @@
 var app = {
 
+    showAlert: function (message, title) {
+        if (navigator.notification) {
+            navigator.notification.alert(message, null, title, 'OK');
+        } else {
+            alert(title ? (title + ": " + message) : message);
+        }
+    },
+
     registerEvents: function() {
         $(window).on('hashchange', $.proxy(this.route, this));
         $('body').on('mousedown', 'a', function(event) {
@@ -8,19 +16,6 @@ var app = {
         $('body').on('mouseup', 'a', function(event) {
             $(event.target).removeClass('tappable-active');
         });
-    },
-
-    showAlert: function (message, title) {
-        if (navigator.notification) {
-            navigator.notification.alert(
-                message,
-                null, // callback
-                title,
-                'OK' // Button label
-            );
-        } else {
-            alert(title + ": " + message);
-        }
     },
 
     route: function() {
